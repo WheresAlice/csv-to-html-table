@@ -20,7 +20,7 @@ CsvToHtmlTable = {
         var $containerElement = $("#" + el);
         $containerElement.empty().append($table);
 
-        $.when($.get(csv_path)).then(
+        $.when($.get(csv_path)).fail(function() {$containerElement.append("<p>Failed to load " + csv_path + "</p>")}).then(
             function (data) {
                 var csvData = $.csv.toArrays(data, csv_options);
                 var $tableHead = $("<thead></thead>");

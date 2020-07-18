@@ -36,13 +36,23 @@
 
 
     <script type="text/javascript">
-      CsvToHtmlTable.init({
-        csv_path: new URL(document.URL).hash.substr(1),
-        element: 'table-container', 
-        allow_download: true,
-        csv_options: {separator: ',', delimiter: '"'},
-        datatables_options: {"paging": true}
-      });
+      csv_path = new URL(document.URL).hash.substr(1)
+      element = 'table-container'
+
+      if (csv_path === "") {
+        $("#" + element).append("<p>Please provide a url to a CSV file in the hash</p>")
+        $("#" + element).append("<p>Example: " + document.URL.replace("#","") + "#https://raw.githubusercontent.com/datacamp/community-groupby/master/data/chasewillden-netflix-shows/data/netflix.csv</p>")
+      } else {
+        CsvToHtmlTable.init({
+          csv_path: csv_path,
+          element: element,
+          allow_download: true,
+          csv_options: {separator: ',', delimiter: '"'},
+          datatables_options: {"paging": true}
+        });
+      }
+
+
     </script>
   </body>
 </html>
